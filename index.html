@@ -69,9 +69,8 @@
 <div class="container">
     <h2>PORTAL SIMULASI</h2>
     <p class="brand">Persona Research & Consulting</p>
-    <p class="exp-info">Akses aktif selama 1 minggu</p>
+    <p class="exp-info">Masa aktif akun: 1 Minggu</p>
 
-    <!-- Form Password -->
     <div id="authBox">
         <input type="password" id="passInput" placeholder="Masukkan Password Akses...">
         <br>
@@ -79,13 +78,12 @@
         <p id="errorMsg">Password salah atau akses kedaluwarsa!</p>
     </div>
 
-    <!-- Menu Sesuai File Referensi -->
     <div id="menuBox" class="menu-grid">
         <p style="font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px;">PILIH MATERI UJI:</p>
         
-        <a href="emoji_1.html" class="btn">1. TES KECERMATAN SIMBOL</a>
-        <a href="hewan_jdl.html" class="btn">2. TES GAMBAR HILANG</a>
-        <a href="bold_2.html" class="btn">3. TES SILUET KOMBINASI</a>
+        <a href="./emoji_1.html" class="btn">1. TES KECERMATAN SIMBOL</a>
+        <a href="./hewan_jdl.html" class="btn">2. TES GAMBAR HILANG</a>
+        <a href="./bold_2.html" class="btn">3. TES SILUET KOMBINASI</a>
 
         <footer>
             WhatsApp: 0877 4251 5786
@@ -96,7 +94,7 @@
 <script>
     // Konfigurasi Keamanan
     const PASS_KEY = "persona03"; 
-    // Set expiry 7 hari dari sekarang (30 April 2026 -> 7 Mei 2026)
+    // Tanggal kedaluwarsa: 7 Mei 2026
     const EXPIRY_DATE = new Date("2026-05-07T23:59:59"); 
 
     function checkAccess() {
@@ -104,12 +102,14 @@
         const now = new Date();
         const errorMsg = document.getElementById('errorMsg');
 
+        // Proteksi Masa Aktif
         if (now > EXPIRY_DATE) {
-            errorMsg.textContent = "Masa berlaku akun sudah habis (Expired)!";
+            errorMsg.textContent = "Masa berlaku akses sudah habis (Expired)!";
             errorMsg.style.display = "block";
             return;
         }
 
+        // Proteksi Password
         if (input === PASS_KEY) {
             document.getElementById('authBox').style.display = "none";
             document.getElementById('menuBox').style.display = "grid";
@@ -120,7 +120,7 @@
         }
     }
 
-    // Support Tombol Enter
+    // Support Tombol Enter pada Keyboard
     document.getElementById('passInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') checkAccess();
     });
