@@ -26,67 +26,78 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             border-top: 6px solid var(--navy);
         }
-        h2 { color: var(--navy); margin-bottom: 10px; }
-        .exp-info { font-size: 12px; color: #64748b; margin-bottom: 20px; }
+        h2 { color: var(--navy); margin-bottom: 5px; font-size: 20px; }
+        .brand { font-weight: bold; color: var(--navy); margin: 0; font-size: 14px; }
+        .exp-info { font-size: 11px; color: #ef4444; margin-bottom: 20px; font-style: italic; }
+        
         input {
-            width: 80%;
+            width: 85%;
             padding: 12px;
             margin: 10px 0;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
             text-align: center;
             font-size: 16px;
+            outline: none;
         }
-        .menu-grid { display: none; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+        input:focus { border-color: var(--navy); }
+
+        .menu-grid { display: none; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
         .btn {
             background: var(--navy);
             color: #fff;
-            padding: 15px;
+            padding: 14px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
+            font-size: 14px;
+            transition: 0.2s;
+            display: block;
         }
-        .btn:hover { background: #1a3a5f; transform: translateY(-2px); }
-        .btn-gold { background: var(--gold); color: var(--navy); }
-        .locked { display: block; }
-        #errorMsg { color: #c0392b; font-size: 14px; margin-top: 10px; display: none; }
+        .btn:hover { background: #1a3a5f; transform: scale(1.02); }
+        #errorMsg { color: #c0392b; font-size: 13px; margin-top: 5px; display: none; }
+        footer { margin-top: 25px; font-size: 11px; color: #94a3b8; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>PORTAL SIMULASI</h2>
-    <p style="font-weight: bold; color: var(--navy); margin: 0;">Persona Research & Consulting</p>
-    <p class="exp-info">Akses ini bersifat sementara (Masa aktif 1 minggu)</p>
+    <p class="brand">Persona Research & Consulting</p>
+    <p class="exp-info">Akses aktif selama 1 minggu</p>
 
     <!-- Form Password -->
-    <div id="authBox" class="locked">
+    <div id="authBox">
         <input type="password" id="passInput" placeholder="Masukkan Password Akses...">
         <br>
-        <button class="btn" style="width: 87%;" onclick="checkAccess()">BUKA AKSES</button>
-        <p id="errorMsg">Password salah atau akses sudah kedaluwarsa!</p>
+        <button class="btn" style="width: 93%; margin: 10px auto;" onclick="checkAccess()">BUKA MENU TES</button>
+        <p id="errorMsg">Password salah atau akses kedaluwarsa!</p>
     </div>
 
-    <!-- Menu Setelah Login -->
+    <!-- Menu Sesuai File Referensi -->
     <div id="menuBox" class="menu-grid">
-        <p style="font-size: 14px; margin-bottom: 10px;">Pilih Jenis Tes:</p>
-        <a href="simbol.html" class="btn">1. TES KECERMATAN SIMBOL</a>
-        <a href="gambar-hilang.html" class="btn">2. TES GAMBAR HILANG</a>
-        <a href="siluet.html" class="btn">3. TES SILUET KOMBINASI</a>
-        <p style="font-size: 11px; color: #94a3b8; margin-top: 20px;">Support WA: 0877 4251 5786</p>
+        <p style="font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px;">PILIH MATERI UJI:</p>
+        
+        <a href="emoji_1.html" class="btn">1. TES KECERMATAN SIMBOL</a>
+        <a href="hewan_jdl.html" class="btn">2. TES GAMBAR HILANG</a>
+        <a href="bold_2.html" class="btn">3. TES SILUET KOMBINASI</a>
+
+        <footer>
+            WhatsApp: 0877 4251 5786
+        </footer>
     </div>
 </div>
 
 <script>
-    // Konfigurasi
-    const PASS_KEY = "persona03"; //
-    const EXPIRY_DATE = new Date("2026-05-07T23:59:59"); // 1 minggu dari 30 April 2026
+    // Konfigurasi Keamanan
+    const PASS_KEY = "persona03"; 
+    // Set expiry 7 hari dari sekarang (30 April 2026 -> 7 Mei 2026)
+    const EXPIRY_DATE = new Date("2026-05-07T23:59:59"); 
 
     function checkAccess() {
         const input = document.getElementById('passInput').value;
@@ -94,7 +105,7 @@
         const errorMsg = document.getElementById('errorMsg');
 
         if (now > EXPIRY_DATE) {
-            errorMsg.textContent = "Akses sudah kedaluwarsa (Expired)!";
+            errorMsg.textContent = "Masa berlaku akun sudah habis (Expired)!";
             errorMsg.style.display = "block";
             return;
         }
@@ -105,10 +116,11 @@
         } else {
             errorMsg.textContent = "Password salah!";
             errorMsg.style.display = "block";
+            document.getElementById('passInput').value = "";
         }
     }
 
-    // Enter Key Support
+    // Support Tombol Enter
     document.getElementById('passInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') checkAccess();
     });
