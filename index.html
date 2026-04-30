@@ -1,129 +1,185 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Tes Kecermatan - Persona Research & Consulting</title>
-    <style>
-        :root {
-            --navy: #0b2340;
-            --gold: #d4a017;
-            --gray: #f1f5f9;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #e2e8f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 420px;
-            border-top: 6px solid var(--navy);
-        }
-        h2 { color: var(--navy); margin-bottom: 5px; font-size: 20px; }
-        .brand { font-weight: bold; color: var(--navy); margin: 0; font-size: 14px; }
-        .exp-info { font-size: 11px; color: #ef4444; margin-bottom: 20px; font-style: italic; }
-        
-        input {
-            width: 85%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            outline: none;
-        }
-        input:focus { border-color: var(--navy); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Test Access</title>
 
-        .menu-grid { display: none; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
-        .btn {
-            background: var(--navy);
-            color: #fff;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.2s;
-            display: block;
-        }
-        .btn:hover { background: #1a3a5f; transform: scale(1.02); }
-        #errorMsg { color: #c0392b; font-size: 13px; margin-top: 5px; display: none; }
-        footer { margin-top: 25px; font-size: 11px; color: #94a3b8; border-top: 1px solid #eee; padding-top: 15px; }
-    </style>
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#0b2340;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+
+    .box{
+        background:white;
+        color:#0b2340;
+        padding:30px;
+        border-radius:12px;
+        width:320px;
+        text-align:center;
+        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    input{
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+        border:2px solid #ddd;
+        border-radius:8px;
+        text-align:center;
+        font-size:16px;
+    }
+
+    button{
+        margin-top:15px;
+        padding:12px;
+        width:100%;
+        background:#0b2340;
+        color:white;
+        border:none;
+        border-radius:8px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+
+    .menu{
+        display:none;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .menu a{
+        display:block;
+        padding:12px;
+        background:#f1f5f9;
+        border-radius:8px;
+        text-decoration:none;
+        color:#0b2340;
+        font-weight:bold;
+    }
+
+    .expired{
+        color:red;
+        font-weight:bold;
+        margin-top:10px;
+    }
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>PORTAL SIMULASI</h2>
-    <p class="brand">Persona Research & Consulting</p>
-    <p class="exp-info">Masa aktif akun: 1 Minggu</p>
+<div class="box">
 
-    <div id="authBox">
-        <input type="password" id="passInput" placeholder="Masukkan Password Akses...">
-        <br>
-        <button class="btn" style="width: 93%; margin: 10px auto;" onclick="checkAccess()">BUKA MENU TES</button>
-        <p id="errorMsg">Password salah atau akses kedaluwarsa!</p>
+    <div id="login">
+        <h3>AKSES TES</h3>
+        <input type="password" id="pass" placeholder="Masukkan Password">
+        <button onclick="login()">MASUK</button>
+        <div id="error" style="color:red; font-size:13px;"></div>
     </div>
 
-    <div id="menuBox" class="menu-grid">
-        <p style="font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px;">PILIH MATERI UJI:</p>
-        
-        <a href="./emoji_1.html" class="btn">1. TES KECERMATAN SIMBOL</a>
-        <a href="./hewan_jdl.html" class="btn">2. TES GAMBAR HILANG</a>
-        <a href="./bold_2.html" class="btn">3. TES SILUET KOMBINASI</a>
+    <div id="menu" class="menu">
+        <h3>MENU TES</h3>
 
-        <footer>
-            WhatsApp: 0877 4251 5786
-        </footer>
+        <a href="bold_2.html">Tes Siluet Kombinasi</a>
+        <a href="emoji_1.html">Tes Simbol Emoji</a>
+        <a href="hewan_jdl.html">Tes Gambar Hilang</a>
+
+        <div id="expiredInfo" style="font-size:12px;"></div>
     </div>
+
 </div>
 
 <script>
-    // Konfigurasi Keamanan
-    const PASS_KEY = "persona03"; 
-    // Tanggal kedaluwarsa: 7 Mei 2026
-    const EXPIRY_DATE = new Date("2026-05-07T23:59:59"); 
 
-    function checkAccess() {
-        const input = document.getElementById('passInput').value;
-        const now = new Date();
-        const errorMsg = document.getElementById('errorMsg');
+const PASSWORD = "persona03";
+const MAX_DEVICE = 3;
+const EXPIRE_DAYS = 7;
 
-        // Proteksi Masa Aktif
-        if (now > EXPIRY_DATE) {
-            errorMsg.textContent = "Masa berlaku akses sudah habis (Expired)!";
-            errorMsg.style.display = "block";
-            return;
-        }
+// ===== LOGIN =====
+function login(){
+    let input = document.getElementById("pass").value;
 
-        // Proteksi Password
-        if (input === PASS_KEY) {
-            document.getElementById('authBox').style.display = "none";
-            document.getElementById('menuBox').style.display = "grid";
-        } else {
-            errorMsg.textContent = "Password salah!";
-            errorMsg.style.display = "block";
-            document.getElementById('passInput').value = "";
-        }
+    if(input !== PASSWORD){
+        document.getElementById("error").innerText = "Password salah!";
+        return;
     }
 
-    // Support Tombol Enter pada Keyboard
-    document.getElementById('passInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') checkAccess();
-    });
+    if(!checkDevice()){
+        document.getElementById("error").innerText = "Batas device tercapai!";
+        return;
+    }
+
+    if(isExpired()){
+        document.getElementById("error").innerText = "Akses sudah expired!";
+        return;
+    }
+
+    startSession();
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("menu").style.display = "flex";
+
+    showExpireInfo();
+}
+
+// ===== DEVICE LIMIT =====
+function checkDevice(){
+    let devices = JSON.parse(localStorage.getItem("devices") || "[]");
+
+    if(!localStorage.getItem("device_id")){
+        let id = Math.random().toString(36).substring(2);
+
+        if(devices.length >= MAX_DEVICE){
+            return false;
+        }
+
+        devices.push(id);
+        localStorage.setItem("device_id", id);
+        localStorage.setItem("devices", JSON.stringify(devices));
+    }
+
+    return true;
+}
+
+// ===== SESSION START =====
+function startSession(){
+    if(!localStorage.getItem("start_time")){
+        let now = new Date().getTime();
+        localStorage.setItem("start_time", now);
+    }
+}
+
+// ===== EXPIRED CHECK =====
+function isExpired(){
+    let start = localStorage.getItem("start_time");
+    if(!start) return false;
+
+    let now = new Date().getTime();
+    let diff = now - start;
+
+    let days = diff / (1000 * 60 * 60 * 24);
+
+    return days > EXPIRE_DAYS;
+}
+
+// ===== INFO EXPIRE =====
+function showExpireInfo(){
+    let start = localStorage.getItem("start_time");
+    if(!start) return;
+
+    let expireDate = new Date(parseInt(start) + (EXPIRE_DAYS * 24 * 60 * 60 * 1000));
+
+    document.getElementById("expiredInfo").innerText =
+        "Berlaku sampai: " + expireDate.toLocaleDateString();
+}
+
 </script>
 
 </body>
